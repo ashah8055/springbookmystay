@@ -25,8 +25,7 @@ public class Room implements Serializable{
     private String[] dateRange; //ex. [20160910,20160915]
     @Column(name = "default_rate")
     private float defaultRate;
-
-	@Column(name = "room_rate")
+    @Column(name = "room_rate")
     private float rate;
     @Column(name = "room_availaibility")
     private Boolean IsAvailable;
