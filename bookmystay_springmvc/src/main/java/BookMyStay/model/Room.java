@@ -19,8 +19,13 @@ public class Room {
     @ManyToMany
     private List<Facility> facility;
     @Column(name = "customer_capacity")
-    private Integer capacity; //for how many people
-    @Column(name = "room_rate")
+    private Integer capacity; //for how many people    
+    @Column(name= "date_range") 
+    private String[] dateRange; //ex. [20160910,20160915]
+    @Column(name = "default_rate")
+    private float defaultRate;
+
+	@Column(name = "room_rate")
     private float rate;
     @Column(name = "room_availaibility")
     private Boolean IsAvailable;
@@ -132,6 +137,29 @@ public class Room {
     public void setChildnum(Integer childnum) {
         this.childnum = childnum;
     }
+    public String[] getDateRange() {
+		return dateRange;
+	}
+
+	public void setDateRange(String[] dateRange) {
+		this.dateRange = dateRange;
+	}
+
+	public float getDefaultRate() {
+		return defaultRate;
+	}
+
+	public void setDefaultRate(float defaultRate) {
+		this.defaultRate = defaultRate;
+	}
+
+	public Boolean getIsAvailable() {
+		return IsAvailable;
+	}
+
+	public void setIsAvailable(Boolean isAvailable) {
+		IsAvailable = isAvailable;
+	}
 
 
 }

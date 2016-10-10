@@ -16,7 +16,7 @@ public class Facility {
     @Column(name = "facility_minifridge")
     private boolean miniFridge;
     private boolean balcony;
-    @ManyToMany
+    @OneToMany
     List<Room> roomList;
 
     public Facility()
