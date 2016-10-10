@@ -17,7 +17,7 @@ public class Facility implements Serializable{
     @Column(name = "facility_minifridge")
     private boolean miniFridge;
     private boolean balcony;
-    @OneToMany
+    @OneToMany(mappedBy="facility")
     List<Room> roomList;
 
     public Facility()
