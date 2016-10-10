@@ -1,9 +1,10 @@
 package BookMyStay.model;
 
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 @Embeddable
-public class UserAddress {
+public class UserAddress implements Serializable{
 
     private String addr1;
     private String addr2;

@@ -1,11 +1,12 @@
 package BookMyStay.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "room_facility")
-public class Facility {
+public class Facility implements Serializable{
 
     @Id
     @GeneratedValue
