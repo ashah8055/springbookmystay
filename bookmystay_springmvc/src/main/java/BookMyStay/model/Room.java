@@ -16,8 +16,8 @@ public class Room {
     @Column(name="room_number")
     private String roomNo;
     private boolean smoke;
-    @ManyToMany
-    private List<Facility> facility;
+    @ManyToOne
+    private Facility facility;
     @Column(name = "customer_capacity")
     private Integer capacity; //for how many people    
     @Column(name= "date_range") 
@@ -55,11 +55,11 @@ public class Room {
         this.reservation = reservation;
     }
 
-    public List<Facility> getFacility() {
+    public Facility getFacility() {
         return facility;
     }
 
-    public void setFacility(List<Facility> facility) {
+    public void setFacility(Facility facility) {
         this.facility = facility;
     }
 
