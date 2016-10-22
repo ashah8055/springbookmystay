@@ -12,7 +12,7 @@
 
     <mvc:annotation-driven />
 
-    <context:component-scan base-package="bookmystaty.web" />
+    <context:component-scan base-package="bookmystay.web" />
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/" />
