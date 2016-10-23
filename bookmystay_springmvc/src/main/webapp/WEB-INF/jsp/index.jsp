@@ -3,7 +3,7 @@
 <body>
 <p>Book My Stay</p>
 <ul>
-  <li><a href="users.html">Users</a></li>
+  <li><a href="search.html">Search rooms</a></li>
 </ul>
 </body>
 </html>

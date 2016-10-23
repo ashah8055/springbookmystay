@@ -27,11 +27,11 @@ public class ReservationDaoImpl implements ReservationDao{
 
 	@Override
 	public List<Reservation> getReservations(Date start, Date end) {
-		return entityManager.createQuery("from Reservation where checkin >= :start and checkout <= :end", Reservation.class)
+		return entityManager.createQuery("from Reservation where checkout > :start or checkin < :end", Reservation.class)
 				.setParameter("start", start)
 				.setParameter("end",end)
 				.getResultList();
 	}
-	
+	//where checkin >= :start or checkout < :end
 
 }
