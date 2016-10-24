@@ -12,8 +12,10 @@ public class UserAddress implements Serializable{
     private String State;
     private String zipcode;
     private String phone;
+    private String country;
 
-    public String getAddr1() {
+
+	public String getAddr1() {
         return addr1;
     }
 
@@ -60,4 +62,12 @@ public class UserAddress implements Serializable{
     public void setPhone(String phone) {
         this.phone = phone;
     }
+    
+    public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
 }

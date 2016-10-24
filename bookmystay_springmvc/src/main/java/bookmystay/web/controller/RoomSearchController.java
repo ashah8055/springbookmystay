@@ -50,7 +50,7 @@ public class RoomSearchController {
 		return "search";
 	}
 	
-	@RequestMapping(value="/search.html", method = RequestMethod.POST)
+	@RequestMapping(value="/user/search.html", method = RequestMethod.POST)
 	public String search(@RequestParam String adultNo, @RequestParam String childNo, @RequestParam String checkin, @RequestParam String checkout, ModelMap models ){
 		
 		int guestNo = Integer.parseInt(adultNo) + Integer.parseInt(childNo);

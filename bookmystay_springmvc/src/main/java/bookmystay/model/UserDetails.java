@@ -27,8 +27,8 @@ public class UserDetails implements Serializable{
     private String securityAnswer;
     @OneToMany(mappedBy = "user")
     private List<Reservation> reservationList;
-    @Column(name = "admin")
-    private boolean admin; //admin:1 user:0
+    @Column(name = "isAdmin")
+    private boolean isAdmin; //admin:1 user:0
 
 	@Embedded
     private UserAddress address;
@@ -119,13 +119,14 @@ public class UserDetails implements Serializable{
     public void setSecurityCard(List<SecurityCard> securityCard) {
         this.securityCard = securityCard;
     }
-    
-    public boolean isAdmin() {
-		return admin;
+	
+	public boolean getAdmin() {
+		return isAdmin;
 	}
 
-	public void setAdmin(boolean admin) {
-		this.admin = admin;
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
+
 	
 }

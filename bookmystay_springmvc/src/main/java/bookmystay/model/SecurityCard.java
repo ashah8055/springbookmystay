@@ -9,23 +9,34 @@ public class SecurityCard implements Serializable{
 
     @Id
     @GeneratedValue
-    @Column(name = "card_no")
+    @Column(name = "cardNo")
     private Integer cardNo;
+    
     @Column(name = "card_type")
     private String cardType;
-    @Column(name = "user_nickname")
-    private String name;
-    @Column(name = "security_code")
+    
+    @Column(name = "card_name")
+    private String card_name;
+    
+    @Column(name = "card_expdate")
+    private String card_expdate;
+    
+	@Column(name = "security_code")
     private Integer secode; //security code
+    
     @Column(name = "card_address1")
     private String addr;
+    
     @Column(name = "card_address2")
     private String addr2;
+    
     @Column(name = "card_city")
     private String city;
+    
     @Column(name = "card_state")
     private String state;
-    @Column(name = "card_zipcode")
+
+	@Column(name = "card_zipcode")
     private String zipcode;
 
     @OneToOne
@@ -46,13 +57,28 @@ public class SecurityCard implements Serializable{
         this.cardNo = cardNo;
     }
 
+    public String getCardType() {
+		return cardType;
+	}
+
+	public void setCardType(String cardType) {
+		this.cardType = cardType;
+	}
     public String getName() {
-        return name;
+        return card_name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.card_name = name;
     }
+
+    public String getCard_expdate() {
+		return card_expdate;
+	}
+
+	public void setCard_expdate(String card_expdate) {
+		this.card_expdate = card_expdate;
+	}
 
     public Integer getSecode() {
         return secode;
