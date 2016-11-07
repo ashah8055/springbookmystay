@@ -30,7 +30,6 @@ public class ReservationDaoImpl implements ReservationDao{
     entityManager.remove(resv);
 	}
 	
-	
 	@Override
 	public Reservation getReservationById(int id) {
 		return entityManager.createQuery("from Reservation where id = :id", Reservation.class)

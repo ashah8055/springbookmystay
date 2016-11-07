@@ -56,8 +56,10 @@ public class UserController {
 
 	// first page after login	
 	@RequestMapping(value="/user/HomeView.html",method=RequestMethod.GET)
-	public String home()
+	public String home(ModelMap model)
 	{
+		User user = SecurityUtils.getUser();
+		model.put("user", user);
 		return "user/HomeView";
 	}
 	

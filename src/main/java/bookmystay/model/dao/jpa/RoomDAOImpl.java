@@ -2,6 +2,8 @@ package bookmystay.model.dao.jpa;
 
 import bookmystay.model.Room;
 import bookmystay.model.dao.RoomDao;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,7 @@ public class RoomDAOImpl implements RoomDao {
 
     @Transactional
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public void addRoom(Room room) {
        manager.merge(room);
     }

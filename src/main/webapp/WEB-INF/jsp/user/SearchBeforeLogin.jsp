@@ -106,11 +106,11 @@ $(document).ready(function(){
 						<div>
 						<label class="control-label col-sm-2">Adults</label>
 						<div class="col-sm-1">
-							<input type="number" name="adultNo" min="0" max="4" class="form-control" />
+							<input type="number" name="adultNo" min="0" max="4" class="form-control" value=1 />
 						</div>
 						<label class="control-label col-sm-2">Children</label>
 						<div class="col-sm-1">
-							<input  type="number" name="childNo" min="0" max="3" class="form-control" />
+							<input  type="number" name="childNo" min="0" max="3" class="form-control" value=0 />
 						</div>
 					</div>
 					

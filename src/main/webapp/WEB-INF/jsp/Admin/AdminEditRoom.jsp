@@ -70,6 +70,10 @@
 						<div class="col-sm-2">
 							<input type="text" name="capacity" value="${SpringWeb.capacity}" class="form-control" placeholder="Enter Capacity" required="required"/>
 						</div>
+						<label class="control-label col-sm-2">Rate</label>
+						<div class="col-sm-2">
+							<input type="text" name="defaultRate" value="${SpringWeb.defaultRate}" class="form-control" placeholder="Enter Rate" required="required"/>
+						</div>
 					</div>
 					<div class="form-group">
 						<label class="control-label col-sm-2">Availability</label>

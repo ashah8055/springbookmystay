@@ -43,21 +43,35 @@
 
 <table id="listOfRoom" class="table table-striped table-bordered table-list" border="1">
     <tr>
-        <th>Reservation number</th>
+        <th>Reservation Code</th>
         <th>checkin</th>
         <th>checkout</th>
         <th>Total Rate</th>
+        <th>Status</th>
         <th>cancel</th>
     </tr>
     <c:forEach items="${SpringWeb}" var="room">
         <tr>
-         <td>${room.id}</td>
+         <td>${room.reservation_code}</td>
          <td>${room.checkin}</td>
          <td>${room.checkout}</td>
          <td>${room.room.defaultRate}</td>
+         
+         <c:choose>
+         <c:when test="${room.status==true}">
+         <td>Active</td>
          <td>
-        <a href="cancel.html?id=${room.id}" >Cancel</a>
+         <a href="cancel.html?id=${room.id}" >Cancel</a>
          </td>
+         </c:when>
+         <c:otherwise>
+         <td>Cancelled</td>
+         <td>
+          </br>
+          </td>
+         </c:otherwise>
+         </c:choose> 
+         
         </tr>
     </c:forEach>
 </table>

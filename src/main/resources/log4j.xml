@@ -7,6 +7,18 @@
             <param name="ConversionPattern" value="%d{ISO8601} %5p %c{1}: %m%n" />
         </layout>
     </appender>
+    
+    <appender name="file" class="org.apache.log4j.FileAppender">
+        <param name="File" value="debug.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} %5p %c{1}: %m%n" />
+        </layout>
+    </appender>
+    
+    <logger name="cs520.springbookmystay">
+     <level value="debug" />
+     <appender-ref ref="file" />
+    </logger>
 
     <root>
         <level value="error" />

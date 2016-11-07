@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -49,7 +50,6 @@ public class ReservationController {
 		 
 		 try
 		 {
-		 System.out.print("I am here");
 		 
 		 Room r= roomDao.getRoom(roomid);
 		 
@@ -57,13 +57,16 @@ public class ReservationController {
 		 
 		 Reservation R=new Reservation();
 		 
-		
-		 
 		 R.setCheckin(checkin);
 		 R.setCheckout(checkout);
 		 R.setRoom(r);
 		 R.setUser(details);
 		 R.setStatus(true);
+		 
+		 String code = UUID.randomUUID().toString();
+
+         R.setReservation_code(code);
+         
 		 resvDao.saveReservation(R);
 		 
 		 Room roo=roomDao.getRoom(R.getRoom().getId());
@@ -94,10 +97,13 @@ public class ReservationController {
 	 
 	 // Reservation Cancelation
 	 @RequestMapping(value="/user/cancel.html")
-		public String resv_confirm( @RequestParam int id,ModelMap model){
+		public String resv_cancel( @RequestParam int id,ModelMap model){
 			
 		 
-		 resvDao.cancelReservation(resvDao.getReservationById(id));
+		 //resvDao.cancelReservation(resvDao.getReservationById(id));
+		 Reservation reservation = resvDao.getReservationById(id);
+		 reservation.setStatus(false);
+		 reservation = resvDao.saveReservation(reservation);
 		 model.put("SpringWeb",resvDao.getReservationByUser(SecurityUtils.getUser())); 
 		 return "/user/ReservationConfirmView";
 		}

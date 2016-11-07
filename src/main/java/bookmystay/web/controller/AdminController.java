@@ -26,10 +26,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
+@SessionAttributes("room")
 public class AdminController
 {
 	
@@ -56,9 +58,8 @@ public class AdminController
     
     
     // first page after login
-    @RequestMapping("/home.html")
+    @RequestMapping(value = {"/home.html","admin/AdminHomeView.html"})
     public String adminHome(HttpSession session){
-    
     	
 	   	Set<String> currentUserRoles=(SecurityUtils.getUser().getRoles());
     	String role = null;
@@ -66,6 +67,8 @@ public class AdminController
     		role=currentUserRole;
     		break;
     	}
+    	
+    	User user = SecurityUtils.getUser();
     	
     	if(role.equals("ROLE_ADMIN")){
     		return "redirect: admin/AdminHomeView.html";
@@ -76,7 +79,7 @@ public class AdminController
     		return "redirect: user/cart.html";
     	}
     	
-   	else{
+   	    else{
     		return "redirect: user/HomeView.html";
     	}
     
@@ -144,10 +147,6 @@ public class AdminController
     @RequestMapping(value="/admin/updateRoom.html",method=RequestMethod.POST)
     public ModelAndView updateRoom(@ModelAttribute("SpringWeb")Room room,
                                    ModelMap model) {
-    	
-        
-        System.out.println("my"+room.getRoomNo());
-        System.out.println("id=="+room.getId());
     	
         roomManager.update(room);
         model.addAttribute("SpringWeb", roomManager.getAllRoom());
@@ -235,4 +234,28 @@ public class AdminController
     return new ModelAndView("/Admin/AdminManageUser",model);
 
   	}
+    
+    @RequestMapping(value="/admin/showUser.html")
+  	public ModelAndView viewUser( @RequestParam int id,ModelMap model){
+  	 
+     User u=	userDao.getUser(id);
+  	 			
+   	model.addAttribute("SpringWeb",u );
+    return new ModelAndView("/Admin/showUser",model);
+
+  	}
+    
+    @RequestMapping(value="/admin/showuser.html")
+	public String viewuser( @RequestParam int id,ModelMap model){
+    	
+    	User user = userDao.getUser(id);
+    	model.put("user", user);
+    	return "Admin/UserDetailView";
+
+	}
+    
+    /**@RequestMapping(value="/admin/addReservation.html",method=RequestMethod.GET)
+    public String addReservation(){
+    	return "admin/addReservation";
+    }*/
 }
