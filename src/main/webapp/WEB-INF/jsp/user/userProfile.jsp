@@ -1,35 +1,15 @@
-	<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-	
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    	 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
     <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-	
-	<html>
-	<head>
-	<script>
-function myFunction() {
-    var pass1 = document.getElementById("password").value;
-    var pass2 = document.getElementById("userConfirmPassword").value;
-    var ok = true;
-    if (pass1 != pass2) {
-        //alert("Passwords Do not match");
-        document.getElementById("password").style.borderColor = "#E34234";
-        document.getElementById("userConfirmPassword").style.borderColor = "#E34234";
-        ok = false;
-    }
-    else {
-      //  alert("Passwords Match!!!");
-    }
-    return ok;
-}
-</script>
-	</head>
-	
-	
-	
-	<body>
-	
-	<form  action="EditProfile.html" method="Post"  class="form-horizontal" >
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>User Profile</title>
+</head>
+<body>
+<form class="form-horizontal" >
 				<div style="font-size: 1.5em; padding: 20px;">Personal Information</div>
 				<div class="form-group">
 					<label class="control-label col-sm-2">First Name</label>
@@ -71,11 +51,6 @@ function myFunction() {
 					</div>
 				</div>
 				
-	
-				<div class="form-group">
-						<div class="col-sm-offset-2 col-sm-10">
-							<input type="submit" value="submit" class="btn btn-primary">
-		<input type="reset" value="clear" class="btn btn-danger">
 						</div>
 					</div>
 			</form>

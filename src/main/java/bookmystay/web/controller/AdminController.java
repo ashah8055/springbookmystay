@@ -2,14 +2,17 @@ package bookmystay.web.controller;
 
 import bookmystay.model.Reservation;
 import bookmystay.model.Room;
+import bookmystay.model.SecurityCard;
 import bookmystay.model.User;
 import bookmystay.model.dao.ReservationDao;
 import bookmystay.model.dao.RoomDao;
+import bookmystay.model.dao.SecurityCardDao;
 import bookmystay.model.dao.UserDao;
 import bookmystay.security.SecurityUtils;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -43,7 +46,8 @@ public class AdminController
 	
 	@Autowired
     RoomDao roomManager;
-   
+//	@Autowired
+//	SecurityCardDao securityDao;
 	// first page
 	@RequestMapping("/index.html")
 	    public String firstPage(){
@@ -59,8 +63,7 @@ public class AdminController
     
     // first page after login
     @RequestMapping(value = {"/home.html","admin/AdminHomeView.html"})
-    public String adminHome(HttpSession session){
-    	
+    public String adminHome(HttpSession session){	
 	   	Set<String> currentUserRoles=(SecurityUtils.getUser().getRoles());
     	String role = null;
     	for(String currentUserRole:currentUserRoles){
@@ -72,6 +75,7 @@ public class AdminController
     	
     	if(role.equals("ROLE_ADMIN")){
     		return "redirect: admin/AdminHomeView.html";
+
     	}
     	
     	if(session.getAttribute("rooms")!=null)
@@ -81,6 +85,7 @@ public class AdminController
     	
    	    else{
     		return "redirect: user/HomeView.html";
+
     	}
     
     }
@@ -147,7 +152,7 @@ public class AdminController
     @RequestMapping(value="/admin/updateRoom.html",method=RequestMethod.POST)
     public ModelAndView updateRoom(@ModelAttribute("SpringWeb")Room room,
                                    ModelMap model) {
-    	
+        
         roomManager.update(room);
         model.addAttribute("SpringWeb", roomManager.getAllRoom());
         return new ModelAndView("/Admin/AdminViewRoom",model);
@@ -234,7 +239,6 @@ public class AdminController
     return new ModelAndView("/Admin/AdminManageUser",model);
 
   	}
-    
     @RequestMapping(value="/admin/showUser.html")
   	public ModelAndView viewUser( @RequestParam int id,ModelMap model){
   	 
@@ -258,4 +262,78 @@ public class AdminController
     public String addReservation(){
     	return "admin/addReservation";
     }*/
+
+    
+    
+    // add walk in users for reservations
+    
+    
+    @RequestMapping(value="/admin/userWalkin.html",method=RequestMethod.GET)
+    public ModelAndView userWalkin() {
+    	System.out.println("first");
+        return new ModelAndView("/Admin/userWalkin", "command",new User());
+    }
+   
+   
+    @RequestMapping(value="/admin/userWalkin2.html",method=RequestMethod.POST)
+    public ModelAndView addUserWalkin(@ModelAttribute("SpringWeb")User user,
+                                ModelMap model) {
+    	
+    
+    	HashSet s=new HashSet();
+		s.add("ROLE_USER");
+		user.setRoles(s); 
+		//List<SecurityCard> list=user.getSecurityCard();
+    	/*SecurityCard c=null;
+    	for(int i=0;i<list.size();i++)
+    	{
+    		c=list.get(0);
+    		c.setCardNo(c.getCardNo());
+    	
+    	}
+    	list.add(c);
+   */ 
+		user.setSecurityCard(user.getSecurityCard());
+  	  	userDao.SaveUser(user);
+    	
+    	
+    	
+    	return null;
+    	//return new ModelAndView("/Admin/AdminViewRoom",model);
+    }
+
+    
+    
+    
+    
+    
+    
+    
+  /*  // Add walk-in users for reservations
+    
+    @RequestMapping(value="/admin/userWalkin.html", method= RequestMethod.GET)
+    public String userReservation()
+    {
+    	
+    	return "/Admin/userWalkin";
+    }
+    
+    @RequestMapping(value="/admin/userWalkin.html", method = RequestMethod.POST)
+    public String userReservation(@ModelAttribute("SpringWeb")User user, ModelMap model)
+    {
+    	System.out.println("user=="+user.getUserEmail());
+    	List<SecurityCard> list=user.getSecurityCard();
+    	for(SecurityCard c:list)
+    	{
+    		System.out.println("Credit Crd information:"+c.getZipcode());		
+    	}
+    
+    //	userDao.SaveUser(user);
+    	
+    	System.out.println("Credit Crd information:"+user.getSecurityCard().size());
+    	return null;
+    //	return "/Admin/AdminManageUser";
+    }
+    
+*/
 }

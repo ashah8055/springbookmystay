@@ -62,6 +62,8 @@ $(document).ready(function(){
 					<li class="active"><a href="HomeView.html">Home</a></li>
 					<li><a href="ReservationConfirmView.html">Reservation</a></li>
 					<li><a href="cart.html">Search History</a></li>
+					<li><a href="EditProfile.html">Edit</a></li>
+					<li><a href="userProfile.html">Profile Information</a></li>
 					<div class="clear"></div>
 				</ul>
 			</div>

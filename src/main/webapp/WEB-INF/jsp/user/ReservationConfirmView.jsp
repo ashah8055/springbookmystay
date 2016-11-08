@@ -35,6 +35,7 @@
 					<li><a href="HomeView.html">Home</a></li>
 					<li class="active"><a href="ReservationConfirmView.html">Reservation</a></li>
 					<li><a href="cart.html">Search History</a></li>
+					<li><a href="EditProfile.html">Edit</a></li>
 					<div class="clear"></div>
 				</ul>
 			</div>
@@ -71,7 +72,6 @@
           </td>
          </c:otherwise>
          </c:choose> 
-         
         </tr>
     </c:forEach>
 </table>

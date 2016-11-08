@@ -37,8 +37,8 @@
 							<li><a href="addRoom.html">RoomAdd</a></li>
 							<li><a href="viewRoom.html">RoomEdit</a></li>
 							<li class="active"><a href="allReservation.html">Reservation</a></li>
-							<li><a href="addReservation.html">ReservationAdd</a></li>
 							<li><a href="viewUsers.html">Users</a></li>
+							<li><a href="userWalkin.html">User Reservation</a></li>
 							<div class="clear"> </div>
 						</ul>
 					</div>
@@ -51,6 +51,7 @@
 		<div class="row">
 			<div class="col-md">
 <table  class="table table-striped table-bordered table-list">
+
 <tr><th>ID</th><th>Checkin</th><th>Checkout</th><th>status</th> <th>cancel</th><th>user</th></tr>
 
 <c:forEach items="${reservations}" var="reservation">
@@ -62,6 +63,7 @@
   <td>${reservation.id}</td>
   <td>${reservation.checkin}</td>
   <td>${reservation.checkout}</td>
+
   <c:choose>
      <c:when test="${reservation.status==true}">
          <td>Active</td>

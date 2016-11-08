@@ -56,10 +56,12 @@ public class UserController {
 
 	// first page after login	
 	@RequestMapping(value="/user/HomeView.html",method=RequestMethod.GET)
+	
 	public String home(ModelMap model)
 	{
 		User user = SecurityUtils.getUser();
 		model.put("user", user);
+
 		return "user/HomeView";
 	}
 	
@@ -84,5 +86,38 @@ public class UserController {
 		 userDao.SaveUser(user);
 		  return "login";
 	    }
-	
+	 
+	 @RequestMapping(value="/user/EditProfile.html",method=RequestMethod.GET)
+		public ModelAndView userEdit( ModelMap model)
+		{
+		 System.out.println("found user");
+		 User user = userDao.getUserById(SecurityUtils.getUser().getId());
+		 model.addAttribute("SpringWeb",user);
+		 
+		 return new ModelAndView("user/EditProfile",model);
+			
+		}
+	 
+	 @RequestMapping(value="/user/EditProfile.html",method = RequestMethod.POST)
+	 public ModelAndView userEdit(@ModelAttribute("SpringWeb")User user, ModelMap model)
+	 {
+		
+		 
+		
+///		user.setUsername(user.getUsername().toString())
+		 
+		 user.setId(SecurityUtils.getUser().getId()); 
+		 user.setId(SecurityUtils.getUser().getId()); 
+			
+		 System.out.println("User name:"+user.getUsername());
+		 System.out.println("User id:"+user.getId());
+		 HashSet s=new HashSet();
+			s.add("ROLE_USER");
+			 
+			 user.setRoles(s); 
+		 
+		 userDao.update(user);
+		 model.addAttribute("SpringWeb", userDao.getUserById(user.getId()));
+		 return new ModelAndView("user/userProfile",model);
+	 }
 }

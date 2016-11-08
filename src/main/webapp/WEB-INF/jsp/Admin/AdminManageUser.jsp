@@ -66,6 +66,7 @@
 							<li><a href="viewRoom.html">RoomEdit</a></li>
 							<li><a href="allReservation.html">Reservation</a></li>
 							<li class="active"><a href="viewUsers.html">Users</a></li>
+							<li><a href="userWalkin.html">User Reservation</a></li>
 							<div class="clear"> </div>
 						</ul>
 					</div>

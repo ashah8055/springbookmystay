@@ -108,7 +108,5 @@
 </c:forEach>
  </form>
 </table>
-
-
 </body>
 </html>

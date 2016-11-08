@@ -16,8 +16,8 @@
    <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
         <property name="driverClassName" value="org.postgresql.Driver" />
         <property name="url" value="jdbc:postgresql://localhost:5432/bookmystay" />
-        <property name="username" value="haiyan" />
-        <property name="password" value="neaps" />
+        <property name="username" value="postgres" />
+        <property name="password" value="root" />
     	<property name="initialSize" value="1" />
     </bean>
 
@@ -47,8 +47,10 @@
         <security:csrf disabled="true" />
         <security:form-login login-page="/login.html" default-target-url="/home.html" />
         <security:logout logout-success-url="/"  />
-        <security:intercept-url pattern="/admin/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-        <security:intercept-url pattern="/user/**" access="hasAnyRole('ROLE_USER')" />
+        <security:intercept-url pattern="/admin/**" access="hasAnyRole('ADMIN','USER')" />
+        <security:intercept-url pattern="/user/**" access="hasAnyRole('USER')" />
+    <!--     <security:intercept-url pattern="/program/**" access="hasAnyRole('ADMIN','ADVISOR')" /> -->
+        <security:intercept-url pattern="/grade/**" access="authenticated" />
     </security:http>
      
      

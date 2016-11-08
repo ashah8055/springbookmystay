@@ -8,7 +8,6 @@ import java.io.Serializable;
 public class SecurityCard implements Serializable{
 
     @Id
-    @GeneratedValue
     private Integer cardNo;
     @Column(name = "user_nickname")
     private String name;
@@ -33,51 +32,27 @@ public class SecurityCard implements Serializable{
 
     @OneToOne
     private Payment payment;
-
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
     private User user;
 
     public SecurityCard() {
 
     }
     
-    
-
-   
-
-
-
 	public String getCardType() {
 		return cardType;
 	}
-
-
-
-
-
-
 
 	public void setCardType(String cardType) {
 		this.cardType = cardType;
 	}
 
-
-
-
-
-
-
 	public String getCard_expdate() {
 		return card_expdate;
 	}
-
-
-
 	public void setCard_expdate(String card_expdate) {
 		this.card_expdate = card_expdate;
 	}
-
-
 
 	public Integer getCardNo() {
         return cardNo;

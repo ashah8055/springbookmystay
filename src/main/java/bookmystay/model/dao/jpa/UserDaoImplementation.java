@@ -1,8 +1,6 @@
 package bookmystay.model.dao.jpa;
 
 import java.util.List;
-
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -10,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import bookmystay.model.Reservation;
+import bookmystay.model.Room;
 import bookmystay.model.User;
 import bookmystay.model.dao.UserDao;
 
@@ -54,6 +53,22 @@ public class UserDaoImplementation implements UserDao {
 	@Transactional
 	public void deleteUser(User user) {
 		manager.remove(user);
+		
+	}
+	@Override
+	public User getUserById(int id) {
+		User user = manager.find(User.class,id);
+		System.out.println("Found user:"+user.getId());
+		return user;
+		
+	}
+
+	@Transactional
+	public User update(User user) {
+	
+		
+		manager.merge(user);
+		return user;
 		
 	}
 	

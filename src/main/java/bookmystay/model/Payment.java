@@ -21,7 +21,8 @@ public class Payment implements Serializable {
   private SecurityCard securityCard;
     @OneToOne
     private Reservation reservation;
-
+    @Column(name="payment_mode")
+    private String paymentMode;
     public int getPaymentId() {
         return paymentId;
     }

@@ -47,6 +47,7 @@
 					<li><a href="HomeView.html">Home</a></li>
 					<li><a href="ReservationConfirmView.html">Reservation</a></li>
 					<li class="active"><a href="cart.html">Search History</a></li>
+					<li><a href="EditProfile.html">Edit</a></li>
 					<div class="clear"></div>
 				</ul>
 			</div>
@@ -54,11 +55,6 @@
 	</div>
 
 <body>
-
-
-
-
-
 
 <table class="table table-striped table-bordered table-list">
 	<tr>
@@ -112,17 +108,6 @@
 </c:forEach>
  </form>
 </table>
-
-
-
-
-
-
-
-
-
-
-
 
 </body>
 </html>

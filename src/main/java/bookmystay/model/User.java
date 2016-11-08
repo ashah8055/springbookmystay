@@ -49,13 +49,8 @@ public class User implements Serializable, org.springframework.security.core.use
    
     @Embedded
     private UserAddress address;
-
-    
-    @OneToMany(mappedBy = "user")
+    @OneToMany(cascade=CascadeType.ALL,mappedBy = "user")
     private List<SecurityCard> securityCard;
-
-
-    
     
 // Security Parametes    
     
@@ -213,12 +208,6 @@ public class User implements Serializable, org.springframework.security.core.use
 		this.securityCard = securityCard;
 	}
 
-
-    
-
-    
-	
-	
 
 	
 }
