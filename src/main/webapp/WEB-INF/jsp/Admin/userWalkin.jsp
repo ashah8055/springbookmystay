@@ -36,6 +36,9 @@
 					</div>
 				</div>
 				</br>
+				Check-in date :<input type="date" name="checkin" class="form-control" required/>
+				</br>
+				Check-out date: <input type="date" name="checkout" class="form-control" required/>
 						
 						Mode of Payment:
 						</br>
@@ -63,7 +66,18 @@
 						<input type="text"  class="form-control" name="securityCard[0].name"  placeholder="Enter Card Name" />
 					</div>
 				</div>
+				
 					</div>
+					
+						<div class="form-group">
+					<label class="control-label col-sm-2">Payment Amount</label>
+					<div class="col-sm-10">
+						<input type="text"  class="form-control" name="amount"  placeholder="Enter Payment Amount" />
+					</div>
+				</div>
+				
+			
+					
 			 
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">

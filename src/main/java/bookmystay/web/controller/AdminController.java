@@ -1,5 +1,6 @@
 package bookmystay.web.controller;
 
+import bookmystay.model.Payment;
 import bookmystay.model.Reservation;
 import bookmystay.model.Room;
 import bookmystay.model.SecurityCard;
@@ -10,12 +11,16 @@ import bookmystay.model.dao.SecurityCardDao;
 import bookmystay.model.dao.UserDao;
 import bookmystay.security.SecurityUtils;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +36,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfCopy;
 
 
 @Controller
@@ -268,35 +279,84 @@ public class AdminController
     // add walk in users for reservations
     
     
-    @RequestMapping(value="/admin/userWalkin.html",method=RequestMethod.GET)
+    @RequestMapping(value="/admin/AdminRoomSearch.html",method=RequestMethod.GET)
     public ModelAndView userWalkin() {
     	System.out.println("first");
-        return new ModelAndView("/Admin/userWalkin", "command",new User());
+        return new ModelAndView("/Admin/AdminRoomSearch", "command",new User());
+    }
+    
+    @RequestMapping(value="/admin/AdminRoomSearch.html",method=RequestMethod.POST)
+    public ModelAndView roomSearch(){
+    	
+    	System.out.println("Here");
+    	return null;
+    	
     }
    
-   
-    @RequestMapping(value="/admin/userWalkin2.html",method=RequestMethod.POST)
-    public ModelAndView addUserWalkin(@ModelAttribute("SpringWeb")User user,
-                                ModelMap model) {
-    	
     
+   @RequestMapping(value="/admin/userWalkin2.html",method=RequestMethod.POST)
+   public ModelAndView addUserWalkin(@ModelAttribute("SpringWeb")User user,ModelMap model,HttpServletResponse response,@RequestParam int amount,@RequestParam String checkin,@RequestParam String checkout) {	
+    	
+	   
+	   
+	   Document document = new Document();
+		 try {
+			
+			 Paragraph paragraph = new Paragraph();
+			 response.setContentType("APPLICATION/pdf");
+			    PdfCopy.getInstance(document, response.getOutputStream());
+			    document.open();
+			   
+			    Paragraph header = new Paragraph();
+			    Paragraph by = new Paragraph();
+			    paragraph.add(checkin);
+			    paragraph.add(checkout);
+			    //paragraph.add(amount);
+			    document.add(header);
+			    document.add(by);
+			    document.add(paragraph);
+	            document.close();
+	            
+		 
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	   
+	   
+	   
+    System.out.println("here");	
     	HashSet s=new HashSet();
 		s.add("ROLE_USER");
 		user.setRoles(s); 
-		//List<SecurityCard> list=user.getSecurityCard();
-    	/*SecurityCard c=null;
+		
+		
+		
+		
+		List<SecurityCard> list=user.getSecurityCard();
+    	SecurityCard c=null;
     	for(int i=0;i<list.size();i++)
     	{
     		c=list.get(0);
+    		c.setUser(user);
     		c.setCardNo(c.getCardNo());
-    	
+    		Payment p=new Payment();
+    		p.setPaymentAmount(amount);
+    		
+    		c.setPayment(p);	
+    		
     	}
     	list.add(c);
-   */ 
-		user.setSecurityCard(user.getSecurityCard());
-  	  	userDao.SaveUser(user);
+   
+		user.setSecurityCard(list);
+		
+		  	userDao.SaveUser(user);
+		  	
     	
-    	
+  	 
     	
     	return null;
     	//return new ModelAndView("/Admin/AdminViewRoom",model);

@@ -32,8 +32,11 @@ import com.itextpdf.text.pdf.PdfCopy;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.parser.PdfTextExtractor;
+
+import bookmystay.model.Payment;
 import bookmystay.model.Reservation;
 import bookmystay.model.Room;
+import bookmystay.model.SecurityCard;
 import bookmystay.model.User;
 import bookmystay.model.dao.ReservationDao;
 import bookmystay.model.dao.RoomDao;
@@ -57,10 +60,13 @@ public class ReservationController {
 	// Reservation add by User
 	 @RequestMapping(value="/user/addReservation.html",method=RequestMethod.GET)
 	    public String addRoom(@RequestParam Date checkin, @RequestParam Date checkout,
-	                                ModelMap model, @RequestParam int roomid, HttpServletResponse response) {
+	                                ModelMap model, @RequestParam int roomid,HttpSession session) {
 		 try
 		 {
+			 
 		 Room r= roomDao.getRoom(roomid);
+		
+		 
 		 
 		 User details=userDao.getUser(SecurityUtils.getUser().getId());
 		 
@@ -70,52 +76,51 @@ public class ReservationController {
 		 R.setRoom(r);
 		 R.setUser(details);
 		 R.setStatus(true);
+		
+		 float rate = R.getRoom().getDefaultRate();
+		 long diffDate = checkout.getTime() - checkin.getTime();
+		 long numOfDays = diffDate/(1000*60*60*24);
+		 float amountPaid = (rate*numOfDays);
+         session.setAttribute("reservation", R);
+		 
+         Payment p = new Payment();
+         p.setPaymentAmount(amountPaid);
+         
+		 model.put("Payment", amountPaid);
+	     model.put("SpringWeb",resvDao.getReservationByUser(SecurityUtils.getUser())); 
+	       
+	   
+		 }catch(Exception ae)
+		 {
+			 System.out.print("Exception:=="+ae.getMessage());
+			 ae.printStackTrace();
+		 }   
+		  return "/user/ReservationPayment";
+	    }
+	 
+	 @RequestMapping(value="/user/addPayment.html",method=RequestMethod.POST)
+	 public ModelAndView addRoom2(HttpSession session,@ModelAttribute("SpringWeb")SecurityCard securityCard,
+			 															ModelMap model)
+	 {
+		 Reservation R=(Reservation) session.getAttribute("reservation");
+		 System.out.println("room no=="+R.getRoom().getRoomNo());
+		
 		 String code = UUID.randomUUID().toString();
 
          R.setReservation_code(code);
+		 
 		 resvDao.saveReservation(R);
 		 
 		 Room roo=roomDao.getRoom(R.getRoom().getId());
 		 roo.setFlag(false);
 	     roomDao.update(roo);
-		 
+		
 	     model.put("SpringWeb",resvDao.getReservationByUser(SecurityUtils.getUser())); 
-		 Document document = new Document();
-		 try {
-			
-			 Paragraph paragraph = new Paragraph();
-			 response.setContentType("APPLICATION/pdf");
-			    PdfCopy.getInstance(document, response.getOutputStream());
-			    document.open();
-			   
-			    Paragraph header = new Paragraph();
-			    Paragraph by = new Paragraph();
-			    paragraph.add(R.getRoom().getRoomNo());
-			   // paragraph.add();
-			    document.add(header);
-			    document.add(by);
-			    document.add(paragraph);
-	            document.close();
-	            
 		 
-		} catch (DocumentException e) {
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	       
-	   //  return "/user/ReservationConfirmView";
-		 }catch(Exception ae)
-		 {
-			 System.out.print("Exception:=="+ae.getMessage());
-			 ae.printStackTrace();
-		 }
-	   return null;   
-	        
-	    }
+	     return new ModelAndView("/user/ReservationConfirmView",model);
+		
+	 }
+
 
 	 // Reservation Confirmation  
 	 @RequestMapping(value="/user/ReservationConfirmView.html")
