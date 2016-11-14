@@ -1,5 +1,7 @@
 package bookmystay.web.validator;
 
+import java.util.Date;
+
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
@@ -26,7 +28,8 @@ public class UserValidator implements Validator{
 		if(!StringUtils.hasText(user.getPassword())){
 			errors.rejectValue("password", "error.field.empty");
 		}
-		
+				
 	}
+	
 
 }

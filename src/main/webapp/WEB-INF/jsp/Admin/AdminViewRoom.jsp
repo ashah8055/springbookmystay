@@ -90,6 +90,7 @@
         <th>balcony</th>
         <th>smoke</th>
         <th>rate</th>
+        <th>capacity</th>
         <th>Room Availability</th>
         <th>Edit</th>
 
@@ -114,7 +115,9 @@
             <td>${room.facility.balcony}</td>
             <td>${room.smoke}</td>
             <td>${room.defaultRate}</td>
+            <td>${room.capacity}</td>
             <td>${room.flag}</td>
+            
             
             <td><a href="update.html?id=${room.id}">Edit</a></td>
 

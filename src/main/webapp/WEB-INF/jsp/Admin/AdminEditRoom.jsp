@@ -68,9 +68,24 @@
 							<input type="text" name="roomNo" value="${SpringWeb.roomNo}" class="form-control" placeholder="Enter Room Number" required="required" />
 						</div>
 						<label class="control-label col-sm-2">Capacity</label>
-						<div class="col-sm-2">
+						<!-- <div class="col-sm-2">
 							<input type="text" name="capacity" value="${SpringWeb.capacity}" class="form-control" placeholder="Enter Capacity" required="required"/>
+						</div> -->
+						<div class="col-sm-2">
+						    <select path="capacity">
+						    <%for(int i=1; i<= 10; i+=1){ %>
+						        <c:choose>
+						        <c:when test="${SpringWeb.capacity eq i}">
+						        <option value="<%=i%>" selected><%=i%></option>
+						        </c:when>
+						        <c:otherwise>
+						        <option value="<%=i%>"><%=i%></option>
+						        </c:otherwise>
+						        </c:choose>
+						    <%} %>
+						    </select>
 						</div>
+						
 						<label class="control-label col-sm-2">Rate</label>
 						<div class="col-sm-2">
 							<input type="text" name="defaultRate" value="${SpringWeb.defaultRate}" class="form-control" placeholder="Enter Rate" required="required"/>

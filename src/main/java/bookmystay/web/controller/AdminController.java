@@ -23,6 +23,7 @@ import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -128,7 +129,7 @@ public class AdminController
    
     @RequestMapping(value="/admin/addRoom1.html",method=RequestMethod.POST)
     public ModelAndView addRoom(@ModelAttribute("SpringWeb")Room room,
-                                ModelMap model) {
+                                ModelMap model, BindingResult result) {
         roomManager.addRoom(room);
         model.addAttribute("SpringWeb", roomManager.getAllRoom());
         return new ModelAndView("/Admin/AdminViewRoom",model);
