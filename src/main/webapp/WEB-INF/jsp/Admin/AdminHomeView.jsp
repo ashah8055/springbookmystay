@@ -53,6 +53,7 @@
 							<li><a href="allReservation.html">Reservation</a></li>
 							<li><a href="viewUsers.html">Users</a></li>
 							<li><a href="AdminRoomSearch.html">User Reservation</a></li>
+							<li><a href="feedbacklist.html">Admin Feedback</a></li>
 							<div class="clear"> </div>
 						</ul>
 					</div>

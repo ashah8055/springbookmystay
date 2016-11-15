@@ -44,7 +44,7 @@ public class User implements Serializable, org.springframework.security.core.use
     private String securityAnswer;
     
     
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade=CascadeType.ALL)
     private List<Reservation> reservationList;
    
     @Embedded

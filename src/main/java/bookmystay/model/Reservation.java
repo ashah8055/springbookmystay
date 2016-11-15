@@ -25,7 +25,7 @@ public class Reservation implements Serializable{
     @ManyToOne
     @JoinColumn(name="room_room_id")
     private Room room;
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
     private User user;
     @OneToOne
     private Payment payment;

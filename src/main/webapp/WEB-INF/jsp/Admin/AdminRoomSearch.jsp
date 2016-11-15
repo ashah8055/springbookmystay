@@ -7,9 +7,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div style="font-size: 1.5em; padding: 20px;">Room Search</div>
+<ul>
+							<li class="active"><a href="AdminHomeView.html">Home</a></li>
+							<li><a href="addRoom.html">RoomAdd</a></li>
+							<li><a href="viewRoom.html">RoomEdit</a></li>
+							<li><a href="allReservation.html">Reservation</a></li>
+							<li><a href="viewUsers.html">Users</a></li>
+							<li><a href="AdminRoomSearch.html">User Reservation</a></li>
+							<div class="clear"> </div>
+						</ul>
 <form action="AdminRoomSearch.html" method="post" class="form-horizontal">
 	<div class="form-group">
 						<label class="control-label col-sm-2">Check-in</label>
@@ -21,6 +32,7 @@
 							<input type="date" name="checkout" class="form-control" required/>
 						</div>
 	</div>
+	
 	<div class="form-group">
 			<div id="slow">
 				<div id="toCopy">

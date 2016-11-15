@@ -6,10 +6,28 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>User reservation</title>
+<script>
+$(document).ready(function(){
+
+	$(".show").hide();
+	$(".credit_card").show();
+
+	});
+</script>
 </head>
 <body>
+						<ul>
+							<li class="active"><a href="AdminHomeView.html">Home</a></li>
+							<li><a href="addRoom.html">RoomAdd</a></li>
+							<li><a href="viewRoom.html">RoomEdit</a></li>
+							<li><a href="allReservation.html">Reservation</a></li>
+							<li><a href="viewUsers.html">Users</a></li>
+							<li><a href="AdminRoomSearch.html">User Reservation</a></li>
+							<div class="clear"> </div>
+						</ul>
 <form:form role="form" action="userWalkin2.html" method="Post"  class="form-horizontal">
 
 		
@@ -29,22 +47,13 @@
 					<div class="col-sm-10">
 						<input type="email" name="userEmail" class="form-control"  placeholder="Enter Email ID" />
 					</div>
-					<div class="form-group">
-					<label class="control-label col-sm-2">Password</label>
-					<div class="col-sm-4">
-						<input type="password" id="password" name="password" class="form-control"  placeholder="Enter Password" required="required"/>
-					</div>
-				</div>
-				</br>
-				Check-in date :<input type="date" name="checkin" class="form-control" required/>
-				</br>
-				Check-out date: <input type="date" name="checkout" class="form-control" required/>
-						
+				
 						Mode of Payment:
 						</br>
-					Credit Card	<input type="checkbox" value="Credit card" /></br>
-					Cash	<input type="checkbox" value="Cash" />
+					Credit Card	<input type="checkbox" id="credit_card" value="Credit card" /></br>
+					Cash	<input type="checkbox" id="cash" value="Cash" />
 					</br></br>
+					<div id="show">
 				 	<div style="font-size: 1.5em; padding: 20px;">Credit Card Information</div>
 				<div class="form-group">
 					<label class="control-label col-sm-2">Card Company</label>
@@ -65,6 +74,7 @@
 					<div class="col-sm-10">
 						<input type="text"  class="form-control" name="securityCard[0].name"  placeholder="Enter Card Name" />
 					</div>
+				</div>
 				</div>
 				
 					</div>

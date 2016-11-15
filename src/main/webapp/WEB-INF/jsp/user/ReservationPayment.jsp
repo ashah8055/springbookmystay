@@ -28,7 +28,7 @@
 				<div class="form-group">
 					<label class="control-label col-sm-2">Card Company</label>
 					<div class="col-sm-4">
-						<select name="securityCard[0].cardType"  class="form-control">
+						<select name="cardType"  class="form-control">
 						<option value="Visa">Visa</option>
 						<option value="MasterCard">MasterCard</option>
 						<option value="Discover">Discover</option>
@@ -36,13 +36,13 @@
 					</div>
 					<label class="control-label col-sm-2">Card No</label>
 					<div class="col-sm-4">
-						<input type="text" name="securityCard[0].cardNo" class="form-control"  placeholder="Enter Card No"/>
+						<input type="text" name="cardNo" class="form-control"  placeholder="Enter Card No"/>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label col-sm-2">Card Name</label>
 					<div class="col-sm-10">
-						<input type="text"  class="form-control" name="securityCard[0].name"  placeholder="Enter Card Name" />
+						<input type="text"  class="form-control" name="cardName"  placeholder="Enter Card Name" />
 					</div>
 				</div>
 				</br>

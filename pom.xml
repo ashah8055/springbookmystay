@@ -83,6 +83,7 @@
     </dependency>
 
 
+
     <dependency>
     	<groupId>org.springframework.security</groupId>
     	<artifactId>spring-security-taglibs</artifactId>
@@ -98,5 +99,19 @@
     	<artifactId>itextpdf</artifactId>
     	<version>5.0.6</version>
     </dependency>
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context-support</artifactId>
+    <version>4.1.5.RELEASE</version>
+</dependency>
+
+
+     
+ 
+<dependency>
+    <groupId>com.sun.mail</groupId>
+    <artifactId>javax.mail</artifactId>
+    <version>1.5.2</version>
+</dependency>
   </dependencies>
 </project>

@@ -33,12 +33,12 @@
 				<div class="header-top-nav">
 					<div class="wrap">
 						<ul>
-							<li><a href="AdminHomeView.html">Home</a></li>
+							<li class="active"><a href="AdminHomeView.html">Home</a></li>
 							<li><a href="addRoom.html">RoomAdd</a></li>
 							<li><a href="viewRoom.html">RoomEdit</a></li>
-							<li class="active"><a href="allReservation.html">Reservation</a></li>
+							<li><a href="allReservation.html">Reservation</a></li>
 							<li><a href="viewUsers.html">Users</a></li>
-							<li><a href="userWalkin.html">User Reservation</a></li>
+							<li><a href="AdminRoomSearch.html">User Reservation</a></li>
 							<div class="clear"> </div>
 						</ul>
 					</div>
@@ -54,7 +54,7 @@
 
 <tr><th>ID</th><th>Checkin</th><th>Checkout</th><th>status</th> <th>cancel</th><th>user</th></tr>
 
-<c:forEach items="${reservations}" var="reservation">
+<c:forEach items="${reservation}" var="reservation">
 
 
 
