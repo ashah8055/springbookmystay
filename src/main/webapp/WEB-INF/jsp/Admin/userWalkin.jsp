@@ -1,15 +1,79 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-   
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>User reservation</title>
+    <title>Employee Management</title>
+    <style>
+        .error
+        {
+            color: #ff0000;
+            font-weight: bold;
+        }
+        #listOfEmployees tr:first-child{
+            font-weight: bold;
+        }
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>View Room</title>
+		<link href="../css/style.css" rel="stylesheet" type="text/css"  media="all" />
+		<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="../css/responsiveslides.css">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script src="js/responsiveslides.min.js"></script>
+		  <script>
+		    // You can also use "$(window).load(function() {"
+			    $(function () {
+			
+			      // Slideshow 1
+			      $("#slider1").responsiveSlides({
+			        maxwidth: 1600,
+			        speed: 600
+			      });
+			});
+		  </script>
+		  
 </head>
+
 <body>
+	<!---start-Wrap--->
+			<!---start-header--->
+			<div class="header">
+				<div class="wrap">
+					<div class="header-top">
+						<div class="logo">
+							<!---<a href="index.html"><img src="images/logo2.png" height="40"  title="logo" /></a>--->
+							<div style="font-size: 3em; padding: 20px;">Book My Stay</div>
+						</div>
+						<div class="contact-info">
+							<a href="<c:url value='/logout' />">Logout</a>
+						</div>
+						<div class="clear"> </div>
+					</div>
+				</div>
+				<div class="header-top-nav">
+					<div class="wrap">
+						<ul>
+							<li class="active"><a href="AdminHomeView.html">Home</a></li>
+							<li><a href="addRoom.html">RoomAdd</a></li>
+							<li><a href="viewRoom.html">RoomEdit</a></li>
+							<li><a href="allReservation.html">Reservation List</a></li>
+							<li><a href="viewUsers.html">Users</a></li>
+							<li><a href="AdminRoomSearch.html">Walkin</a></li>
+							<div class="clear"> </div>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+<br/>
 <form:form role="form" action="userWalkin2.html" method="Post"  class="form-horizontal">
 
 		
@@ -29,22 +93,13 @@
 					<div class="col-sm-10">
 						<input type="email" name="userEmail" class="form-control"  placeholder="Enter Email ID" />
 					</div>
-					<div class="form-group">
-					<label class="control-label col-sm-2">Password</label>
-					<div class="col-sm-4">
-						<input type="password" id="password" name="password" class="form-control"  placeholder="Enter Password" required="required"/>
-					</div>
-				</div>
-				</br>
-				Check-in date :<input type="date" name="checkin" class="form-control" required/>
-				</br>
-				Check-out date: <input type="date" name="checkout" class="form-control" required/>
-						
+				
 						Mode of Payment:
 						</br>
-					Credit Card	<input type="checkbox" value="Credit card" /></br>
-					Cash	<input type="checkbox" value="Cash" />
+					Credit Card	<input type="checkbox" id="credit_card" value="Credit card" /></br>
+					Cash	<input type="checkbox" id="cash" value="Cash" />
 					</br></br>
+					<div id="show">
 				 	<div style="font-size: 1.5em; padding: 20px;">Credit Card Information</div>
 				<div class="form-group">
 					<label class="control-label col-sm-2">Card Company</label>
@@ -66,16 +121,17 @@
 						<input type="text"  class="form-control" name="securityCard[0].name"  placeholder="Enter Card Name" />
 					</div>
 				</div>
+				</div>
 				
 					</div>
 					
-						<div class="form-group">
+				<!-- 		<div class="form-group">
 					<label class="control-label col-sm-2">Payment Amount</label>
 					<div class="col-sm-10">
 						<input type="text"  class="form-control" name="amount"  placeholder="Enter Payment Amount" />
 					</div>
 				</div>
-				
+			 -->	
 			
 					
 			 

@@ -1,4 +1,8 @@
-
+ <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+ 
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -11,6 +15,7 @@
 			<!---start-header--->
 			<div class="header">
 				<div class="wrap">
+				
 					<div class="header-top">
 						<div class="logo">
 							<!---<a href="index.html"><img src="images/logo2.png" height="40"  title="logo" /></a>--->
@@ -67,27 +72,27 @@
 				<div class="col span_2_of_3">
 				  <div class="contact-form">
 				  	<h3>Contact Us</h3>
-					    <form method="post" action="contact-post.html">
-					    	<div>
+					    <form:form  modelAttribute="feedback"  class="form-horizontal" action="contact.html" method="post">
+				    	<div>
 						    	<span><label>NAME</label></span>
-						    	<span><input name="userName" type="text" class="textbox"></span>
+						    	<span> <form:input path="feedback_name"  class="form-control"/></span>
 						    </div>
 						    <div>
 						    	<span><label>E-MAIL</label></span>
-						    	<span><input name="userEmail" type="text" class="textbox"></span>
+						    	<span><form:input path="feedback_email"  class="form-control" /></span>
 						    </div>
-						    <div>
+						     <div>
 						     	<span><label>MOBILE</label></span>
-						    	<span><input name="userPhone" type="text" class="textbox"></span>
+						    	<span><form:input path="phone"  class="form-control" /></span>
 						    </div>
 						    <div>
 						    	<span><label>SUBJECT</label></span>
-						    	<span><textarea name="userMsg"> </textarea></span>
+						    	<span><form:textarea path="feedback_message" rows="5" cols="30" /></span>
 						    </div>
 						   <div>
 						   		<span><input type="submit" value="Submit"></span>
 						  </div>
-					    </form>
+					    </form:form>
 
 				    </div>
   				</div>				

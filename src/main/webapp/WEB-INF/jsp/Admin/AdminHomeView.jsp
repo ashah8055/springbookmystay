@@ -50,9 +50,10 @@
 							<li class="active"><a href="AdminHomeView.html">Home</a></li>
 							<li><a href="addRoom.html">RoomAdd</a></li>
 							<li><a href="viewRoom.html">RoomEdit</a></li>
-							<li><a href="allReservation.html">Reservation</a></li>
+							<li><a href="allReservation.html">Reservation List</a></li>
 							<li><a href="viewUsers.html">Users</a></li>
-							<li><a href="AdminRoomSearch.html">User Reservation</a></li>
+							<li><a href="AdminRoomSearch.html">Walkin</a></li>
+							<li><a href="feedbacklist.html">Admin Feedback</a></li>
 							<div class="clear"> </div>
 						</ul>
 					</div>

@@ -1,30 +1,60 @@
-	<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-	
-    <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-	
-	<html>
-	<head>
-	<script>
-function myFunction() {
-    var pass1 = document.getElementById("password").value;
-    var pass2 = document.getElementById("userConfirmPassword").value;
-    var ok = true;
-    if (pass1 != pass2) {
-        //alert("Passwords Do not match");
-        document.getElementById("password").style.borderColor = "#E34234";
-        document.getElementById("userConfirmPassword").style.borderColor = "#E34234";
-        ok = false;
-    }
-    else {
-      //  alert("Passwords Match!!!");
-    }
-    return ok;
-}
-</script>
-	</head>
-	
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<title>User Home</title>
+<link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="../css/responsiveslides.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="js/responsiveslides.min.js"></script>
+</head>
+<body>
+<!-- 
+<div class="container">
+<table class='table' border="2" align="center">
+<tr>
+<td><a href="HomeView.html">Home</a></td>
+<td> <a href="<c:url value='/logout' />">Logout</a></td>
+ <td><a href="Amenities">Amenities</a></td> 
+<td><a href="ReservationConfirmView.html">Reservation</a></td>
+ <td><a href="Contact">ContactUs</a></td>
+</tr>
+</table> -->
+<!---start-Wrap--->
+	<!---start-header--->
+	<div class="header">
+		<div class="wrap">
+			<div class="header-top">
+				<div class="logo">
+					<!-- <a href="index.html"><img src="../images/logo2.png"  title="logo" /></a> -->
+					<div style="font-size: 3em; padding: 20px;">Book My Stay</div>
+				</div>
+
+				<div class="contact-info">
+					<a href="<c:url value='/logout' />">Logout</a>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="header-top-nav">
+			<div class="wrap">
+				<ul>
+					<li><a href="HomeView.html">Home</a></li>
+					<li><a href="ReservationConfirmView.html">Reservation</a></li>
+					<li class="active"><a href="cart.html">Search History</a></li>
+					<li><a href="EditProfile.html">Edit</a></li>
+					<div class="clear"></div>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+<body>	
 	
 	
 	<body>

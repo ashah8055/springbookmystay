@@ -61,11 +61,12 @@
 				<div class="header-top-nav">
 					<div class="wrap">
 						<ul>
-							<li><a href="AdminHomeView.html">Home</a></li>
+							<li class="active"><a href="AdminHomeView.html">Home</a></li>
 							<li><a href="addRoom.html">RoomAdd</a></li>
 							<li><a href="viewRoom.html">RoomEdit</a></li>
-							<li><a href="allReservation.html">Reservation</a></li>
-							<li class="active"><a href="viewUsers.html">Users</a></li>
+							<li><a href="allReservation.html">Reservation List</a></li>
+							<li><a href="viewUsers.html">Users</a></li>
+							<li><a href="AdminRoomSearch.html">Walkin</a></li>
 							<div class="clear"> </div>
 						</ul>
 					</div>
