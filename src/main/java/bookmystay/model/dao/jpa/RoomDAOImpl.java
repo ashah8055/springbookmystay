@@ -79,7 +79,7 @@ public class RoomDAOImpl implements RoomDao {
 	@Override
 	public List<Room> getRoomsBetweenDates(Date start, Date end,int capacity) {
 		// TODO Auto-generated method stub
-		String query="select r from Room as r where  r.capacity>=:capacity and r.id NOT IN (select resv.room.id from Reservation as resv where (resv.checkin >= :start and resv.checkin<:end) OR (resv.checkout>= :start and resv.checkout<:end )  )  ";
+		String query="select r from Room as r where  r.capacity>=:capacity and r.id NOT IN (select resv.room.id from Reservation as resv where (resv.checkin >= :start and resv.checkin<:end and resv.status is true) OR (resv.checkout>= :start and resv.checkout<:end and resv.status is true)  )  ";
 		
 		List<Room> room=manager.createQuery(query).setParameter("capacity", capacity).
 				setParameter("end",end).setParameter("start", start).getResultList();

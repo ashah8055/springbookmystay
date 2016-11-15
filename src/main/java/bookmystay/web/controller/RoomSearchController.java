@@ -95,7 +95,7 @@ public class RoomSearchController {
 	 
 		// room search before login
 		@RequestMapping(value={"/search.html"},method=RequestMethod.POST)
-		public String getRoomsForUserByDateSearch1(@RequestParam String checkin, @RequestParam String checkout,@RequestParam List<Integer> adultNo, @RequestParam List<Integer> childNo,HttpSession session,ModelMap models,BindingResult result){
+		public String getRoomsForUserByDateSearch1(@RequestParam String checkin, @RequestParam String checkout,@RequestParam List<Integer> adultNo, @RequestParam List<Integer> childNo,HttpSession session,ModelMap models){
 			Date checkinDate;
 			Date checkoutDate;	
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");

@@ -87,6 +87,7 @@
 		  			</td>
 		  			</tr>
 		  			<tr><td><a href="Signupview.html">SignUp</a></td></tr>
+		  			<tr><td><a href="forgotpasswordview.html">Forget Password</a></td></tr>
 				</table>
 				
 			</div>

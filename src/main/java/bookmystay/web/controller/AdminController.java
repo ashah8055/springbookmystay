@@ -129,7 +129,7 @@ public class AdminController
    
     @RequestMapping(value="/admin/addRoom1.html",method=RequestMethod.POST)
     public ModelAndView addRoom(@ModelAttribute("SpringWeb")Room room,
-                                ModelMap model, BindingResult result) {
+                                ModelMap model) {
         roomManager.addRoom(room);
         model.addAttribute("SpringWeb", roomManager.getAllRoom());
         return new ModelAndView("/Admin/AdminViewRoom",model);
@@ -199,7 +199,10 @@ public class AdminController
 	public String resv_confirm( @RequestParam int id,ModelMap model){
 		
 	 
-	 resvDao.cancelReservation(resvDao.getReservationById(id));
+	 //resvDao.cancelReservation(resvDao.getReservationById(id));
+    	Reservation reservation = resvDao.getReservationById(id);
+		reservation.setStatus(false);
+		reservation = resvDao.saveReservation(reservation);
 	 
 	 List<Reservation> reservations = new ArrayList<>();	
  	reservations = resvDao.allReservation();

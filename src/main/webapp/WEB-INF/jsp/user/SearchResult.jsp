@@ -85,7 +85,7 @@
   <td>${room.roomNo}</td>
   
    <td>${room.type}</td>
-  <td>${room.rate}</td>
+  <td>${room.defaultRate}</td>
  
   
   

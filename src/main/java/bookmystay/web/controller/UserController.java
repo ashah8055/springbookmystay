@@ -11,6 +11,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -51,6 +53,9 @@ public class UserController {
 	@Autowired
 	private RoomDao roomDao;
 	
+	@Autowired
+	private JavaMailSender mailSender;
+	
 	/*@Autowired
 	SecurityCardDao securityDao;*/
 
@@ -64,6 +69,38 @@ public class UserController {
 
 		return "user/HomeView";
 	}
+	
+	@RequestMapping(value = "/forgotpasswordview.html", method = RequestMethod.GET)
+	public String forgetpassword() {
+		return "user/forgotpasswordview";
+	}
+	
+	@RequestMapping(value = "/forgotpasswordview.html", method = RequestMethod.POST)
+	public String forgetpassword(@RequestParam String useremail) {
+		System.out.println("paaramete" + useremail);
+User user1 =userDao.getUserByemail(useremail);
+
+if(user1.getUserEmail().equals(useremail))
+{
+	
+	System.out.println("Email match");
+	SimpleMailMessage email = new SimpleMailMessage();
+	email.setTo(user1.getUserEmail());
+	email.setSubject("Bookmystay Password");
+	email.setText("Your Password is " + user1.getPassword());
+
+	// sends the e-mail
+	mailSender.send(email);
+
+
+}
+	
+		
+		return "user/forgotpasswordemailsend";
+		
+	}
+	
+	
 	
 	// user registration 
 		 @RequestMapping(value="/Signupview.html",method=RequestMethod.GET)

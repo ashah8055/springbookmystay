@@ -2,6 +2,7 @@ package bookmystay.model.dao.jpa;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
@@ -70,6 +71,24 @@ public class UserDaoImplementation implements UserDao {
 		manager.merge(user);
 		return user;
 		
+	}
+
+	@Override
+	public User getUserByemail(String useremail) {
+		User u = null;
+		try{
+		 u = manager.createQuery( "from User where lower(userEmail)= lower(:useremail) ", User.class )
+    			.setParameter( "useremail", useremail )
+    			.getSingleResult();
+		 
+		 
+		 System.out.println(u.getUsername());
+		 
+		}
+		catch(NoResultException rs){
+			
+		}
+		return u;
 	}
 	
 }

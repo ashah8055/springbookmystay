@@ -14,4 +14,5 @@ public interface UserDao {
 	User getUserByUsername( String username );
 	User getUserById(int id);
 	User update(User user);
+	User getUserByemail(String uemail);
 }
