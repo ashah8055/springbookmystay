@@ -1,6 +1,9 @@
 package bookmystay.model;
 
 import javax.persistence.*;
+
+import org.hibernate.engine.internal.Cascade;
+
 import java.io.Serializable;
 
 @Entity
@@ -30,9 +33,10 @@ public class SecurityCard implements Serializable{
     @Column(name = "card_expdate")
     private String card_expdate;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     private Payment payment;
-    @ManyToOne
+   
+    @ManyToOne(cascade=CascadeType.ALL)
     private User user;
 
     public SecurityCard() {

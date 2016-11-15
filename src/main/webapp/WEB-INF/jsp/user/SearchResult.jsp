@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -83,14 +84,9 @@
 <c:forEach items="${rooms}" var="room">
 <tr>
   <td>${room.roomNo}</td>
-  
    <td>${room.type}</td>
   <td>${room.defaultRate}</td>
- 
-  
-  
   <td>${room.capacity}</td>
- 
 
   <security:authorize access="authenticated">
   

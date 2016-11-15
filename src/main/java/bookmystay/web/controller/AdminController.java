@@ -1,5 +1,6 @@
 package bookmystay.web.controller;
 
+import bookmystay.model.Payment;
 import bookmystay.model.Reservation;
 import bookmystay.model.Room;
 import bookmystay.model.SecurityCard;
@@ -10,12 +11,20 @@ import bookmystay.model.dao.SecurityCardDao;
 import bookmystay.model.dao.UserDao;
 import bookmystay.security.SecurityUtils;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.security.Principal;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +41,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Section;
+import com.itextpdf.text.pdf.CMYKColor;
+import com.itextpdf.text.pdf.PdfCopy;
 
 
 @Controller
@@ -183,7 +203,7 @@ public class AdminController
     	List<Reservation> reservations = new ArrayList<>();	
     	reservations = resvDao.allReservation();
     	
-    	models.put("reservations", reservations);
+    	models.put("reservation", reservations);
 		
 		return "Admin/AllReservationView";
 	
@@ -198,7 +218,7 @@ public class AdminController
     @RequestMapping(value="/admin/cancelReservation.html")
 	public String resv_confirm( @RequestParam int id,ModelMap model){
 		
-	 
+
 	 //resvDao.cancelReservation(resvDao.getReservationById(id));
     	Reservation reservation = resvDao.getReservationById(id);
 		reservation.setStatus(false);
@@ -272,43 +292,241 @@ public class AdminController
     // add walk in users for reservations
     
     
-    @RequestMapping(value="/admin/userWalkin.html",method=RequestMethod.GET)
+    @RequestMapping(value="/admin/AdminRoomSearch.html",method=RequestMethod.GET)
     public ModelAndView userWalkin() {
     	System.out.println("first");
-        return new ModelAndView("/Admin/userWalkin", "command",new User());
+        return new ModelAndView("/Admin/AdminRoomSearch", "command",new User());
+    }
+    
+    @RequestMapping(value="/admin/AdminRoomSearch.html",method=RequestMethod.POST)
+    public String roomSearch(@RequestParam String checkin, @RequestParam String checkout,ModelMap models,@RequestParam List<Integer> adultNo, @RequestParam List<Integer> childNo,HttpSession session){
+    	
+    	System.out.println("here");
+    	
+    	Date checkinDate;
+		Date checkoutDate;	
+		Reservation R = new Reservation();
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+	try{
+		checkinDate= df.parse(checkin);
+		checkoutDate= df.parse(checkout);
+	
+		Set<Room> my=new HashSet<>();
+		
+		List<Room> finalrooms=new ArrayList<>();
+		for(int i=0;i<adultNo.size();i++)
+		{
+		int guestNo = adultNo.get(i) +childNo.get(i);
+		
+		finalrooms=roomManager.getRoomsBetweenDates(checkinDate, checkoutDate,guestNo);
+		
+		for(int j=0;j<finalrooms.size();j++)
+		{		
+		Room l=(Room)	 finalrooms.get(j);
+		my.add(l);
+
+		}
+		}
+		session.setAttribute( "rooms", my );
+		session.setAttribute( "checkin", checkinDate );
+		session.setAttribute( "checkout", checkoutDate );
+		models.put("checkin", checkinDate);
+		models.put("checkout", checkoutDate);
+		// float rate = R.getRoom().getDefaultRate();
+	//	 long diffDate = checkoutDate.getTime() - checkinDate.getTime();
+//		 long numOfDays = diffDate/(1000*60*60*24);
+	//	 float amountPaid = (rate*numOfDays);
+         session.setAttribute("reservation", R);
+		 
+         Payment p = new Payment();
+  //       p.setPaymentAmount(amountPaid);
+       //  session.setAttribute("Payment", amountPaid);
+		 
+		
+		
+		return "Admin/AdminSearchResult";
+		
+		}catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return null;
+    	
     }
    
-   
-    @RequestMapping(value="/admin/userWalkin2.html",method=RequestMethod.POST)
-    public ModelAndView addUserWalkin(@ModelAttribute("SpringWeb")User user,
-                                ModelMap model) {
-    	
     
-    	HashSet s=new HashSet();
-		s.add("ROLE_USER");
+    
+    // save walkin user
+    
+   @RequestMapping(value="/admin/userWalkin2.html",method=RequestMethod.POST)
+   public ModelAndView addUserWalkin(@ModelAttribute("SpringWeb")User user,ModelMap model,HttpServletResponse response,HttpSession session) {	
+	   
+	  Date checkin=(Date) session.getAttribute("checkin");
+	  Date checkout=(Date) session.getAttribute("checkout");
+	  int roomid1=(int) session.getAttribute("roomid1");
+	  Room r= roomManager.getRoomById(roomid1);
+	  
+	//  System.out.print("mervick  room no==="+r.getRoomNo());
+	
+	  // User details=userDao.getUser(SecurityUtils.getUser().getId());
+	
+	  	    HashSet s=new HashSet();
+	  	    s.add("ROLE_USER");
+		
 		user.setRoles(s); 
-		//List<SecurityCard> list=user.getSecurityCard();
-    	/*SecurityCard c=null;
+		userDao.SaveUser(user);
+			  User user1=userDao.getUserByUsername(user.getUsername());
+
+	  System.out.print("user id==="+user1.getId());
+		Reservation R=new Reservation();
+		  R.setCheckin(checkin);
+		  R.setCheckout(checkout);
+		  R.setRoom(r);
+	      R.setUser(user1);
+		  R.setStatus(true);
+		  float rate = R.getRoom().getDefaultRate();
+		  long diffDate = checkout.getTime() - checkin.getTime();
+		  long numOfDays = diffDate/(1000*60*60*24);
+		  float amountPaid = (rate*numOfDays);	
+		  
+		  int amount=(int) amountPaid;
+		  
+		  String code = UUID.randomUUID().toString();
+
+	      R.setReservation_code(code);
+			 
+	      List<Reservation> list1=new ArrayList<>();
+	      list1.add(R);
+
+	  		
+		List<SecurityCard> list=user1.getSecurityCard();
+    	SecurityCard c=null;
     	for(int i=0;i<list.size();i++)
     	{
     		c=list.get(0);
+    		c.setUser(user1);
     		c.setCardNo(c.getCardNo());
-    	
+    		Payment p=new Payment();
+    		p.setPaymentAmount(amountPaid);
+    		
+    		c.setPayment(p);	
+    		
     	}
     	list.add(c);
-   */ 
-		user.setSecurityCard(user.getSecurityCard());
-  	  	userDao.SaveUser(user);
+   
+		user1.setSecurityCard(list);
+		user1.setReservationList(list1);
+			
+		  	userDao.SaveUser(user1);
+		  	
+		  	 Room roo=roomManager.getRoom(R.getRoom().getId());
+			  roo.setFlag(false);
+			  roomManager.update(roo);
+
+		
+			   Document document = new Document();
+			   Font redFont = FontFactory.getFont(FontFactory.COURIER, 12, Font.BOLD, new CMYKColor(0, 255, 0, 0));
+			   Font blueFont = FontFactory.getFont(FontFactory.HELVETICA, 8, Font.NORMAL, new CMYKColor(255, 0, 0, 0));
+				 try {
+					
+					 Paragraph paragraph = new Paragraph();
+					 response.setContentType("APPLICATION/pdf");
+					    PdfCopy.getInstance(document, response.getOutputStream());
+					    document.open();
+					   
+					    Paragraph sectionTitle = new Paragraph("RESERVATION CONFIRMATION", redFont);
+					    paragraph.add(sectionTitle);
+					   // Section section1 = .addSection(sectionTitle);
+					    Paragraph sectionContent = new Paragraph("Welcome to Book My Stay. Here is your reservation confirmation receipt", blueFont);
+					    paragraph.add(sectionContent);
+					    
+					    Paragraph header = new Paragraph();
+					    Paragraph by = new Paragraph();
+					    paragraph.add("\nReservation Code:");
+					    paragraph.add(new Chunk(R.getReservation_code()));
+					    paragraph.add("\nName:");
+					    paragraph.add(new Chunk(user1.getUsername()));
+					    paragraph.add(" ");
+					    paragraph.add(new Chunk(user1.getUserLname()));
+					    paragraph.add("Check-in Date:");
+					    paragraph.add(new Chunk(checkin.toString()));
+					    paragraph.add("\nCheck-out date:");
+					    paragraph.add(new Chunk(checkout.toString()));
+					    paragraph.add("\nTotal amount paid:");
+					    paragraph.add(new Chunk(String.valueOf(amount)));
+					    
+					    document.add(header);
+					    document.add(by);
+					    document.add(paragraph);
+			            document.close();
+			            
+				 
+				} catch (DocumentException e) {
+					e.printStackTrace();
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			     
+	  
+			  
+			  
+			  
+			  
+		model.put("reservation", resvDao.allReservation());  
     	
-    	
-    	
-    	return null;
-    	//return new ModelAndView("/Admin/AdminViewRoom",model);
+    	return new ModelAndView("/Admin/AllReservationView",model);
     }
 
     
     
-    
+// Reservation add by Admin
+	 @RequestMapping(value="/admin/addReservation1.html",method=RequestMethod.GET)
+	    public String addRoom(@RequestParam Date checkin, @RequestParam Date checkout,
+	                                ModelMap model, @RequestParam int roomid,HttpSession session) {
+		 
+		 session.setAttribute("roomid1", roomid);
+		 
+	
+		 
+//		 try
+//		 {
+//			 
+//		 Room r= roomManager.getRoom(roomid);
+//		
+//		 
+//		 
+//		 User details=userDao.getUser(SecurityUtils.getUser().getId());
+//		 
+//		 Reservation R=new Reservation();
+//		 R.setCheckin(checkin);
+//		 R.setCheckout(checkout);
+//		 R.setRoom(r);
+//		 R.setUser(details);
+//		 R.setStatus(true);
+//		
+//		 float rate = R.getRoom().getDefaultRate();
+//		 long diffDate = checkout.getTime() - checkin.getTime();
+//		 long numOfDays = diffDate/(1000*60*60*24);
+//		 float amountPaid = (rate*numOfDays);
+//         session.setAttribute("reservation", R);
+//		 
+//         Payment p = new Payment();
+//         p.setPaymentAmount(amountPaid);
+//         
+//		 model.put("Payment", amountPaid);
+//	     model.put("SpringWeb",resvDao.getReservationByUser(SecurityUtils.getUser())); 
+//	       
+//	   
+//		 }catch(Exception ae)
+//		 {
+//			 System.out.print("Exception:=="+ae.getMessage());
+//			 ae.printStackTrace();
+//		 }   
+		  return "/Admin/userWalkin";
+	    }
+	 
+
     
     
     
@@ -340,4 +558,12 @@ public class AdminController
     }
     
 */
+
+   
+   
+   
+   
+   
+   
+   
 }
