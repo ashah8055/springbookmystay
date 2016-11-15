@@ -89,9 +89,18 @@
 							<form:input path="roomNo" value="" class="form-control" placeholder="Enter Room Number" required="required" />
 						</div>
 						<label class="control-label col-sm-2">Capacity</label>
-						<div class="col-sm-2">
+						<!-- <div class="col-sm-2">
 							<form:input path="capacity" value="" class="form-control" placeholder="Enter Capacity" required="required" />
+						</div> -->
+						
+						<div class="col-sm-2">
+						    <form:select path="capacity">
+						    <%for(int i=1; i<= 10; i+=1){ %>
+						        <form:option value="<%=i%>"><%=i%></form:option>
+						    <%} %>
+						    </form:select>
 						</div>
+						
 					</div>
 					<div class="form-group">
 						<label class="control-label col-sm-2">Availability</label>

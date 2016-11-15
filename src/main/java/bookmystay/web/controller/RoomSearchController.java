@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +32,7 @@ import bookmystay.model.dao.ReservationDao;
 import bookmystay.model.dao.RoomDao;
 import bookmystay.model.dao.UserDao;
 import bookmystay.security.SecurityUtils;
+import bookmystay.web.validator.AdminValidator;
 
 @Controller
 @SessionAttributes("mySessionAttribute")
@@ -45,6 +47,9 @@ public class RoomSearchController {
 	
 	@Autowired
 	UserDao userDao;
+	
+	@Autowired
+    private AdminValidator adminValidator;
 	
 	 	
 	 // Room Search after login
@@ -90,12 +95,12 @@ public class RoomSearchController {
 	 
 		// room search before login
 		@RequestMapping(value={"/search.html"},method=RequestMethod.POST)
-		public String getRoomsForUserByDateSearch1(@RequestParam String checkin, @RequestParam String checkout,ModelMap models,@RequestParam List<Integer> adultNo, @RequestParam List<Integer> childNo,HttpSession session){
-		
+		public String getRoomsForUserByDateSearch1(@RequestParam String checkin, @RequestParam String checkout,@RequestParam List<Integer> adultNo, @RequestParam List<Integer> childNo,HttpSession session,ModelMap models,BindingResult result){
 			Date checkinDate;
 			Date checkoutDate;	
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		try{
+			
 			checkinDate= df.parse(checkin);
 			checkoutDate= df.parse(checkout);
 		

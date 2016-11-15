@@ -3,14 +3,16 @@ package bookmystay.web.validator;
 import java.util.Date;
 
 import org.springframework.stereotype.Component;
+import org.springframework.util.NumberUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import bookmystay.model.Room;
 import bookmystay.model.User;
 
 @Component
-public class UserValidator implements Validator{
+public class AdminValidator implements Validator{
 
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -20,16 +22,14 @@ public class UserValidator implements Validator{
 
 	@Override
 	public void validate(Object target, Errors errors) {
-		User user = (User) target;
-		
-		if(!StringUtils.hasText(user.getUsername())){
-			errors.rejectValue("username", "error.field.empty");
+		Date date = (Date) target;
+		//show error when the date is before today
+		if(!date.before(new Date())){
+			errors.rejectValue("checkin","error.date.invalid");
 		}
-		if(!StringUtils.hasText(user.getPassword())){
-			errors.rejectValue("password", "error.field.empty");
-		}
-				
+		if(!date.before(new Date())){
+			errors.rejectValue("checkout","error.date.invalid");
+		}	
 	}
-	
 
 }
